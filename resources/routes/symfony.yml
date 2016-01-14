@@ -1,0 +1,3 @@
+AdminModule_Index:
+    pattern: /AdminModule/index
+    defaults: { _controller: "AdminModule:Index:index"}

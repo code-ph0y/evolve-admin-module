@@ -27,6 +27,11 @@ class Module extends AbstractModule
         return $this->loadConfig(__DIR__ . '/resources/config/config.php');
     }
 
+    /**
+     * Get the configuration for the Autoloader
+     *
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -37,5 +42,4 @@ class Module extends AbstractModule
             ),
         );
     }
-
 }

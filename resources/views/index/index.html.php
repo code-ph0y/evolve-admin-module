@@ -1,3 +1,3 @@
-<?php $view->extend('::base.html.php'); ?>
+<?php $view->extend('AdminModule:base:admin.html.php'); ?>
 
-<div style="color: white">Welcome to your new module: AdminModule</div>
+<div style="color: white">Dashboard</div>

@@ -1,9 +1,9 @@
 <?php
-namespace UserModule\Controller;
+namespace AdminModule\Controller;
 
-use UserModule\Controller\Shared as SharedController;
-use UserModule\Entity\User as UserEntity;
-use UserModule\Entity\AuthUser as AuthUserEntity;
+use AdminModule\Controller\Shared as SharedController;
+use AdminModule\Entity\User as UserEntity;
+use AdminModule\Entity\AuthUser as AuthUserEntity;
 
 class Auth extends SharedController
 {
@@ -73,25 +73,10 @@ class Auth extends SharedController
 
     }
 
-    public function registerAction()
-    {
-
-    }
-
     protected function renderJsonResponse($response)
     {
         $this->getRequest()->headers->set('Content-Type', 'application/json');
 
         return json_encode($response);
-    }
-
-    public function forgotpwAction()
-    {
-        return $this->render('User:auth:signup.html.php');
-    }
-
-    public function forgotpwenterAction()
-    {
-        return $this->render('User:auth:forgotpwenter.html.php');
     }
 }

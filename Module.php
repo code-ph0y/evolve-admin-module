@@ -8,6 +8,14 @@ class Module extends AbstractModule
 {
 
     /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'AdminModule';
+    }
+
+    /**
      * Get the routes for this module
      *
      * @return \Symfony\Component\Routing\RouteCollection
@@ -41,5 +49,15 @@ class Module extends AbstractModule
                 ),
             ),
         );
+    }
+
+    /**
+     * Get the service configuration
+     *
+     * @return array
+     */
+    public function getServiceConfig()
+    {
+        return array('factories' => array());
     }
 }

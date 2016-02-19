@@ -4,3 +4,6 @@ AdminModule_Auth:
 AdminModule_Dashboard:
     pattern: /admin/dashboard
     defaults: { _controller: "AdminModule:Index:index"}
+AdminModule_Users:
+    pattern: /admin/users
+    defaults: { _controller: "AdminModule:Users:list"}    

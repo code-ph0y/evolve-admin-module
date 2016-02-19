@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php $view['slots']->output('title', 'PPI AdminModule') ?></title>
+        <title><?php $view['slots']->output('title', 'Evolve Admin') ?></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
 
@@ -29,7 +29,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
               <div class="container-fluid">
                 <div class="navbar-header">
-                  <a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>" class="navbar-brand">PPI Admin</a>
+                  <a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>" class="navbar-brand">Evolve Admin</a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                   <ul class="nav navbar-nav navbar-right">
@@ -45,9 +45,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                  <ul class="nav nav-sidebar">
-                    <li><a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>">Dashboard <span class="sr-only">(current)</span></a></li>
-                  </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li><a href="<?php echo $view['router']->generate('AdminModule_Users'); ?>">Users</a></li>
+                    </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <?php $view['slots']->output('_content'); ?>

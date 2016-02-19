@@ -6,13 +6,10 @@ use AdminModule\Entity\User as UserEntity;
 
 class User extends BaseStorage
 {
-
-    const TABLE_NAME = 'user';
-
-    protected $_meta = array(
-        'conn'    => 'main',
-        'table'   => 'user',
-        'primary' => 'id',
+    protected $meta_data = array(
+        'conn'      => 'main',
+        'table'     => 'user',
+        'primary'   => 'id',
         'fetchMode' => \PDO::FETCH_ASSOC
     );
 
@@ -55,29 +52,27 @@ class User extends BaseStorage
     {
         return $this->createQueryBuilder()
             ->select('u.*')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->andWhere('u.email = :email')->setParameter(':email', $email)
             ->execute()
-            ->fetch($this->getFetchMode());
+            ->fetch($this->meta_data['fetchMode']);
     }
 
-    public function getAllWithLevels()
+    public function getAll()
     {
-
         $entities = array();
-        $rows = $this->createQueryBuilder()
+        $rows = $this->ds->createQueryBuilder()
             ->select('u.*, ul.title user_level_title')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->leftJoin('u', 'user_level', 'ul', 'u.user_level_id = ul.id')
             ->execute()
-            ->fetchAll($this->getFetchMode());
+            ->fetchAll($this->meta_data['fetchMode']);
 
         foreach ($rows as $row) {
             $entities[] = new UserEntity($row);
         }
 
         return $entities;
-
     }
 
     /**
@@ -96,7 +91,6 @@ class User extends BaseStorage
         }
 
         return new UserEntity($row);
-
     }
 
     /**
@@ -110,18 +104,17 @@ class User extends BaseStorage
     {
         $row = $this->createQueryBuilder()
             ->select('u.*')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->andWhere('u.username = :username')
             ->setParameter(':username', $username)
             ->execute()
-            ->fetch($this->getFetchMode());
+            ->fetch($this->meta_data['fetchMode']);
 
         if ($row === false) {
             throw new \Exception('Unable to find user record by username: ' . $username);
         }
 
         return new UserEntity($row);
-
     }
 
     /**
@@ -134,11 +127,11 @@ class User extends BaseStorage
     {
         $row = $this->createQueryBuilder()
             ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->andWhere('u.email = :email')
             ->setParameter(':email', $email)
             ->execute()
-            ->fetch($this->getFetchMode());
+            ->fetch($this->meta_data['fetchMode']);
 
         return $row['total'] > 0;
     }
@@ -153,11 +146,11 @@ class User extends BaseStorage
     {
         $row = $this->createQueryBuilder()
             ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->andWhere('u.username = :username')
             ->setParameter(':username', $username)
             ->execute()
-            ->fetch($this->getFetchMode());
+            ->fetch($this->meta_data['fetchMode']);
 
         return $row['total'] > 0;
     }
@@ -172,41 +165,13 @@ class User extends BaseStorage
     {
         $row = $this->createQueryBuilder()
             ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
+            ->from($this->meta_data['table'], 'u')
             ->andWhere('u.id = :id')
             ->setParameter(':id', $id)
             ->execute()
-            ->fetch($this->getFetchMode());
+            ->fetch($this->meta_data['fetchMode']);
 
         return $row['total'] > 0;
-    }
-
-    public function existsByGithubUID($uid)
-    {
-        $row = $this->ds->createQueryBuilder()
-            ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
-            ->andWhere('u.github_uid = :id')
-            ->setParameter(':id', $uid)
-            ->execute()
-            ->fetch($this->getFetchMode());
-
-        return $row['total'] > 0;
-    }
-
-
-    public function getByGithubUID($uid)
-    {
-
-        $row = $this->ds->createQueryBuilder()
-            ->select('u.*')
-            ->from($this->getTableName(), 'u')
-            ->andWhere('u.github_uid = :uid')
-            ->setParameter(':uid', $uid)
-            ->execute()
-            ->fetch($this->getFetchMode());
-
-        return $row !== false ? new UserEntity($row) : false;
     }
 
     /**
@@ -242,22 +207,12 @@ class User extends BaseStorage
         return $this->ds->insert(self::TABLE_NAME, $user->toInsertArray());
     }
 
-    public function rowsToEntities($rows) {
+    public function rowsToEntities($rows)
+    {
         $ent = array();
-        foreach($rows as $r) {
+        foreach ($rows as $r) {
             $ent[] = new UserEntity($r);
         }
         return $ent;
     }
-
-    protected function getTableName()
-    {
-        return self::TABLE_NAME;
-    }
-
-    protected function getFetchMode()
-    {
-        return \PDO::FETCH_ASSOC;
-    }
-
 }

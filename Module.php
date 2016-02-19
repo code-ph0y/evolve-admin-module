@@ -58,6 +58,10 @@ class Module extends AbstractModule
      */
     public function getServiceConfig()
     {
-        return array('factories' => array());
+        return array('factories' => array(
+            'admin.user.storage' => function ($sm) {
+                 return new \AdminModule\Storage\User($sm->get('datasource')->getConnection('main'));
+            }
+        ));
     }
 }

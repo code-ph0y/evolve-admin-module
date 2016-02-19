@@ -27,20 +27,20 @@
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
-              <div class="container-fluid">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                  <a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>" class="navbar-brand">Evolve Admin</a>
+                    <a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>" class="navbar-brand">Evolve Admin</a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Help</a></li>
-                  </ul>
-                  <form class="navbar-form navbar-right">
-                    <input type="text" placeholder="Search..." class="form-control">
-                  </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" placeholder="Search..." class="form-control">
+                    </form>
                 </div>
-              </div>
-            </nav>
+            </div>
+        </nav>
 
         <div class="container-fluid">
             <div class="row">

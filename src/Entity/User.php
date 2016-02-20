@@ -4,10 +4,14 @@ namespace AdminModule\Entity;
 
 class User
 {
-    protected $id;
-    protected $username;
-    protected $name;
-    protected $email;
+    protected $id          = null;
+    protected $username    = null;
+    protected $first_name  = null;
+    protected $last_name   = null;
+    protected $email       = null;
+
+    // Virtual
+    protected $level_title = null;
 
     public function __construct($data = array())
     {
@@ -18,6 +22,7 @@ class User
         }
 
     }
+
 
     /**
      * Get the value of Id
@@ -40,13 +45,23 @@ class User
     }
 
     /**
-     * Get the value of Name
+     * Get the value of First Name
      *
      * @return mixed
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
+    }
+
+    /**
+     * Get the value of Last Name
+     *
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
     }
 
     /**
@@ -57,5 +72,25 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the value of Level Title
+     *
+     * @return mixed
+     */
+    public function getLevelTitle()
+    {
+        return $this->level_title;
+    }
+
+   /**
+    * Get the value of First Name and Last Name
+    *
+    * @return mixed
+    */
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }

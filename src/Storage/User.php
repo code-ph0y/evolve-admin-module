@@ -14,32 +14,37 @@ class User extends BaseStorage
     );
 
     /**
-     * Find a user record by its ID
+     * Get a blank user enitity
      *
-     * @param $userID
      * @return mixed
      */
-    public function findByID($userID)
+    public function getBlankEntity()
     {
-        return $this->find($userID);
+        return new UserEntity();
     }
 
     /**
      * Get a user entity by its ID
      *
-     * @param $userID
+     * @param $user_id
      * @return mixed
      * @throws \Exception
      */
-    public function getByID($userID)
+    public function getByID($user_id)
     {
-        $row = $this->find($userID);
+        $row = $this->ds->createQueryBuilder()
+            ->select('u.*, ul.title AS ul_title, ul.id AS ul_id')
+            ->from($this->meta_data['table'], 'u')
+            ->leftJoin('u', 'user_level', 'ul', 'u.user_level_id = ul.id')
+            ->andWhere('u.id = :user_id')->setParameter(':user_id', $user_id)
+            ->execute()
+            ->fetch($this->meta_data['fetchMode']);
+
         if ($row === false) {
-            throw new \Exception('Unable to obtain user row for id: ' . $userID);
+            throw new \Exception('Unable to obtain user row for id: ' . $user_id);
         }
 
         return new UserEntity($row);
-
     }
 
     /**
@@ -61,8 +66,9 @@ class User extends BaseStorage
     public function getAll()
     {
         $entities = array();
+
         $rows = $this->ds->createQueryBuilder()
-            ->select('u.*, ul.title user_level_title')
+            ->select('u.*, ul.title AS level_title')
             ->from($this->meta_data['table'], 'u')
             ->leftJoin('u', 'user_level', 'ul', 'u.user_level_id = ul.id')
             ->execute()

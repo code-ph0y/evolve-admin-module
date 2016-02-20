@@ -6,4 +6,13 @@ AdminModule_Dashboard:
     defaults: { _controller: "AdminModule:Index:index"}
 AdminModule_Users:
     pattern: /admin/users
-    defaults: { _controller: "AdminModule:Users:list"}    
+    defaults: { _controller: "AdminModule:Users:list"}
+AdminModule_Users_Create:
+    pattern: /admin/user/create
+    defaults: { _controller: "AdminModule:Users:edit", user_id: 0}
+AdminModule_Users_Edit:
+    pattern: /admin/user/edit/{user_id}
+    defaults: { _controller: "AdminModule:Users:edit"}
+AdminModule_Users_Save:
+    pattern: /admin/user/save
+    defaults: { _controller: "AdminModule:Users:save"}

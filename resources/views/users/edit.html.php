@@ -9,15 +9,15 @@
 <form method="post" action="<?php echo $view['router']->generate('AdminModule_Users_Save'); ?>">
     <div class="form-group">
         <label for="userInputFirstName">First Name</label>
-        <input type="text" class="form-control" id="userInputFirstName" placeholder="First Name">
+        <input type="text" class="form-control" id="userInputFirstName" placeholder="First Name" value="<?php echo $user->getFirstName(); ?>">
     </div>
     <div class="form-group">
         <label for="userInputLastName">Last Name</label>
-        <input type="text" class="form-control" id="userInputLastName" placeholder="Last Name">
+        <input type="text" class="form-control" id="userInputLastName" placeholder="Last Name" value="<?php echo $user->getLastName(); ?>">
     </div>
     <div class="form-group">
         <label for="userInputEmail">Email Address</label>
-        <input type="text" class="form-control" id="userInputEmail" placeholder="Email">
+        <input type="text" class="form-control" id="userInputEmail" placeholder="Email" value="<?php echo $user->getEmail(); ?>">
     </div>
     <div class="form-group">
         <label for="userInputEmail">User Level</label>
@@ -28,8 +28,6 @@
             <?php endforeach; ?>
         </select>
     </div>
-
-    <!-- todo: User Level Select Box -->
 
     <button type="submit" class="btn btn-primary">
         <i class="fa fa-floppy-o"></i> Save

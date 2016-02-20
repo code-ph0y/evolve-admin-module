@@ -23,7 +23,9 @@
         <tr>
             <td><input type="checkbox" id="check-all" /></td>
             <td>Name</td>
+            <td>Email</td>
             <td>User Level</td>
+            <td>Status</td>
             <td>Actions</td>
         </tr>
     </thead>
@@ -39,7 +41,9 @@
                      />
                 </td>
                 <td><?php echo $user->getFullName(); ?></td>
+                <td><?php echo $user->getEmail(); ?></td>
                 <td><?php echo $user->getLevelTitle(); ?></td>
+                <td><?php echo $user->getStatus(); ?></td>
                 <td>
                     <a class="btn btn-primary"
                        href="<?php echo $view['router']->generate('AdminModule_Users_Edit', array('user_id'=>$user->getId())); ?>"

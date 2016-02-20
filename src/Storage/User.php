@@ -66,9 +66,10 @@ class User extends BaseStorage
     public function getAll()
     {
         $rows = $this->ds->createQueryBuilder()
-            ->select('u.*, ul.title AS level_title')
+            ->select("u.*, ul.title AS level_title, IF(uat.used = '0', 0, 1) AS activated")
             ->from($this->meta_data['table'], 'u')
             ->leftJoin('u', 'user_level', 'ul', 'u.user_level_id = ul.id')
+            ->leftJoin('u', 'user_activation_token', 'uat', 'uat.user_id = u.id')
             ->execute()
             ->fetchAll($this->meta_data['fetchMode']);
 

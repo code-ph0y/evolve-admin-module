@@ -13,6 +13,8 @@ class User
 
     // Virtual
     protected $level_title   = null;
+    protected $blocked       = null;
+    protected $activated     = null;
 
     public function __construct($data = array())
     {
@@ -21,9 +23,7 @@ class User
                 $this->{$key} = $value;
             }
         }
-
     }
-
 
     /**
      * Get the value of Id
@@ -105,4 +105,42 @@ class User
         return $this->user_level_id;
     }
 
+
+    /**
+     * Get the value of Status
+     *
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        $status = 'Waiting Activation';
+
+        if ($this->getBlocked() == 1) {
+            $status = 'Blocked';
+        } elseif ($this->getActivated() == 1) {
+            $status = 'Activated';
+        }
+
+        return $status;
+    }
+
+    /**
+     * Get the value of Blocked
+     *
+     * @return mixed
+     */
+    public function getBlocked()
+    {
+        return $this->blocked;
+    }
+
+    /**
+     * Get the value of Activated
+     *
+     * @return mixed
+     */
+    public function getActivated()
+    {
+        return $this->activated;
+    }
 }

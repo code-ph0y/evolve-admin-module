@@ -4,14 +4,15 @@ namespace AdminModule\Entity;
 
 class User
 {
-    protected $id          = null;
-    protected $username    = null;
-    protected $first_name  = null;
-    protected $last_name   = null;
-    protected $email       = null;
+    protected $id            = null;
+    protected $user_level_id = null;
+    protected $username      = null;
+    protected $first_name    = null;
+    protected $last_name     = null;
+    protected $email         = null;
 
     // Virtual
-    protected $level_title = null;
+    protected $level_title   = null;
 
     public function __construct($data = array())
     {
@@ -93,4 +94,15 @@ class User
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
+
+    /**
+     * Get the value of User Level Id
+     *
+     * @return mixed
+     */
+    public function getUserLevelId()
+    {
+        return $this->user_level_id;
+    }
+
 }

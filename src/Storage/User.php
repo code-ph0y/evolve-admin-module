@@ -65,8 +65,6 @@ class User extends BaseStorage
 
     public function getAll()
     {
-        $entities = array();
-
         $rows = $this->ds->createQueryBuilder()
             ->select('u.*, ul.title AS level_title')
             ->from($this->meta_data['table'], 'u')
@@ -74,9 +72,7 @@ class User extends BaseStorage
             ->execute()
             ->fetchAll($this->meta_data['fetchMode']);
 
-        foreach ($rows as $row) {
-            $entities[] = new UserEntity($row);
-        }
+        $entities = $this->rowsToEntities($rows);
 
         return $entities;
     }

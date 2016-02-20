@@ -41,7 +41,11 @@
                 <td><?php echo $user->getFullName(); ?></td>
                 <td><?php echo $user->getLevelTitle(); ?></td>
                 <td>
-                    <a class="btn btn-primary" href="<?php echo $view['router']->generate('AdminModule_Users_Edit', array('user_id'=>$user->getId())); ?>" role="button"><i class="fa fa-edit"></i> Edit User</a>
+                    <a class="btn btn-primary"
+                       href="<?php echo $view['router']->generate('AdminModule_Users_Edit', array('user_id'=>$user->getId())); ?>"
+                       role="button">
+                        <i class="fa fa-edit"></i> Edit User
+                    </a>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

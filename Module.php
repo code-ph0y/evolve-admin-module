@@ -61,6 +61,10 @@ class Module extends AbstractModule
         return array('factories' => array(
             'admin.users.storage' => function ($sm) {
                  return new \AdminModule\Storage\User($sm->get('datasource')->getConnection('main'));
+            },
+
+            'admin.userlevels.storage' => function ($sm) {
+                return new \AdminModule\Storage\UserLevel($sm->get('datasource')->getConnection('main'));
             }
         ));
     }

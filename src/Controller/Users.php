@@ -24,7 +24,9 @@ class Users extends SharedController
             $user = $this->getService('admin.users.storage')->getById($user_id);
         }
 
-        return $this->render('AdminModule:users:edit.html.php', compact('user'));
+        $user_levels = $this->getService('admin.userlevels.storage')->getAll();
+
+        return $this->render('AdminModule:users:edit.html.php', compact('user', 'user_levels'));
     }
 
     public function saveAction(Request $request)

@@ -50,7 +50,38 @@
                         <li><a href="<?php echo $view['router']->generate('AdminModule_Users'); ?>">Users</a></li>
                     </ul>
                 </div>
+
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div id="flashes"></div>
+                    <!-- Begin Flash Message Injection -->
+                    <?php
+                        $flashNames = array('info' => 'info', 'success' => 'success', 'error' => 'error', 'warning' => 'block', 'notice' => 'block');
+                        $flashHeadings = array('info' => 'Heads Up!', 'error' => 'Oops!', 'success' => 'Well done!', 'block' => 'Warning!');
+
+                        if($view['session']->hasFlashes()):
+                    ?>
+                    <div class="flashes">
+                    <?php
+                        foreach($view['session']->getFlashes() as $flashName => $flashes):
+                            $alertClass = isset($flashNames[$flashName]) ? $flashNames[$flashName] : 'info';
+                            foreach($flashes as $flash):
+                    ?>
+                            <div class="alert alert-<?php echo $alertClass?>">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <i class="icon-info-sign"></i>
+                                <strong class="alert-heading"><?php echo $flashHeadings[$alertClass];?></strong>
+                                <span><?php echo $flash;?></span>
+                            </div>
+                    <?php
+                                endforeach;
+                        endforeach;
+                    ?>
+                    </div>
+                    <!-- End of Flash Message Injection -->
+                    <?php
+                    endif;
+                    ?>
+
                     <?php $view['slots']->output('_content'); ?>
                 </div>
             </div>

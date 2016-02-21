@@ -9,6 +9,9 @@
     <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dataTables.bootstrap.min.js'); ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dataTables.init.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dialog.bootstrap.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/adminmodule.init.js'); ?>"></script>
+
 <?php $view['slots']->stop(); ?>
 
 <h1>Users</h1>
@@ -59,7 +62,7 @@
                             <li><a href="#">Change Password</a></li>
                             <li><a href="#">Request User To Chanage Password</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $view['router']->generate('AdminModule_Block_User'); ?>">Block User</a></li>
+                            <li><a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId())); ?>">Block User</a></li>
                         </ul>
                     </div>
                 </td>

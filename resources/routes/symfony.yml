@@ -17,5 +17,5 @@ AdminModule_Users_Save:
     pattern: /admin/user/save
     defaults: { _controller: "AdminModule:Users:save"}
 AdminModule_Block_User:
-    pattern: /admin/user/block/{user_id}
+    pattern: /admin/user/block/{user_id}/{block_value}
     defaults: { _controller: "AdminModule:Users:blockuser"}

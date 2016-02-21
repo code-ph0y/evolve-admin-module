@@ -213,11 +213,12 @@ class User extends BaseStorage
     /**
      * Block a user using their user id
      */
-    public function blockUser($user_id)
+    public function blockUser($user_id, $block_value)
     {
+        $block_value = ($block_value < 0 || $block_value > 1) ? 0 : $block_value;
         return $this->ds->update(
             $this->meta_data['table'],
-            array('blocked'=>1),
+            array('blocked'=>$block_value),
             array($this->meta_data['primary']=>$user_id)
         );
     }

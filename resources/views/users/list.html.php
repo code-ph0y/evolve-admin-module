@@ -62,7 +62,9 @@
                             <li><a href="#">Change Password</a></li>
                             <li><a href="#">Request User To Chanage Password</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId())); ?>">Block User</a></li>
+                            <li>
+                                <a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId(), 'block_value'=>($user->getBlocked()==0) ? 1:0)); ?>">Block User</a>
+                            </li>
                         </ul>
                     </div>
                 </td>

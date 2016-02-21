@@ -55,6 +55,7 @@
                 </div>
             </div>
         </div>
+
         <script src="<?=$view['assets']->getUrl('components/jquery/dist/jquery.min.js');?>"></script>
         <script src="<?=$view['assets']->getUrl('components/jquery-ui/jquery-ui.js');?>"></script>
         <script src="<?=$view['assets']->getUrl('components/bootstrap/dist/js/bootstrap.min.js');?>"></script>

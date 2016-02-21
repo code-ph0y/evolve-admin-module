@@ -210,6 +210,18 @@ class User extends BaseStorage
         return $this->ds->insert(self::TABLE_NAME, $user->toInsertArray());
     }
 
+    /**
+     * Block a user using their user id
+     */
+    public function blockUser($user_id)
+    {
+        return $this->ds->update(
+            $this->meta_data['table'],
+            array('blocked'=>1),
+            array($this->meta_data['primary']=>$user_id)
+        );
+    }
+
     public function rowsToEntities($rows)
     {
         $ent = array();

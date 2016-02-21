@@ -47,4 +47,11 @@ class Users extends SharedController
 
         }
     }
+
+    public function blockuserAction(Request $request)
+    {
+        $this->getService('admin.users.storage')->blockUser((int)$request->get('user_id'));
+        $this->setFlash('success', 'User has been blocked');
+        return $this->redirectToRoute('AdminModule_Users');
+    }
 }

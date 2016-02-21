@@ -63,7 +63,13 @@
                             <li><a href="#">Request User To Chanage Password</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId(), 'block_value'=>($user->getBlocked()==0) ? 1:0)); ?>">Block User</a>
+                                <a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId(), 'block_value'=>($user->getBlocked()==0) ? 1:0)); ?>">
+                                    <?php if ($user->getBlocked() == 1) : ?>
+                                        Unblock User
+                                    <?php else: ?>
+                                        Block User
+                                    <?php endif; ?>
+                                </a>
                             </li>
                         </ul>
                     </div>

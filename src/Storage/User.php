@@ -212,6 +212,10 @@ class User extends BaseStorage
 
     /**
      * Block a user using their user id
+     *
+     * @param  integer $user_id
+     * @param  integer $block_value
+     * @return integer
      */
     public function blockUser($user_id, $block_value)
     {

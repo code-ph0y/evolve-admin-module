@@ -31,21 +31,64 @@ class Users extends SharedController
 
     public function saveAction(Request $request)
     {
-        /**
-         * @todo validate data
-         */
+        $config        = $this->getConfig()
+        $missingFields = array();
+        $post          = $request->request->all();
+        // List of required array keys
+        $requiredKeys  = array(
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'user_level_id'
+        );
 
-        $user = $request->get();
+        $userStorage = $this->getService('admin.users.storage');
 
-        // Validate input
-        if ($user) {
-
+        // Check for missing fields, or fields being empty.
+        foreach ($requiredKeys as $field) {
+            if (!isset($post[$field]) || empty($post[$field])) {
+                $missingFields[] = $field;
+            }
         }
-        // Save User (Create or Update)
 
-        if ($errors == '') {
-
+        // If any fields were missing, inform the user
+        if (!empty($missingFields)) {
+            $this->setFlash('error', 'Some requred fields are empty. Please check your input and try again!');
+            return $this->render('AdminModule:users:edit.html.php');
         }
+
+        // Check if the email address already exists
+        if ($userStorage->existsByEmail($post['email'])) {
+            $this->setFlash(
+                'error',
+                'Email already exists at this moment. Please change your email address and try again!'
+            );
+            return $this->render('AdminModule:users:edit.html.php');
+        }
+
+        if ($post['id'] == 0) {
+            // Generate random password
+            $password         = $this->getService('auth.security')->generateStrongPassword();
+            // Generate random salt
+            $userSalt         = $this->getService('auth.security')->generateSalt();
+            // Get authSalt from Application Config
+            $appAuthSalt      = $config['authSalt'];
+            // Generate encrypted password
+            $post['password'] = $this->getService('auth.security')->saltPass($password, $appAuthSalt, $userSalt);
+            // Set blocked value to not blocked
+            $post['blocked']  = 0;
+            // Create User
+            $newUserID = $userStorage->create($post);
+
+            // @todo : create a entry in the user_activation_token table
+
+        } else {
+            $userStorage->update($post, $post['id']);
+        }
+
+        $this->setFlash('success', 'User Created. Password is ' . $password);
+        return $this->redirectToRoute('AdminModule_Users');
     }
 
     public function blockuserAction(Request $request)

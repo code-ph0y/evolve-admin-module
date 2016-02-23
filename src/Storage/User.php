@@ -200,14 +200,36 @@ class User extends BaseStorage
     }
 
     /**
+     * Delete a user by their ID
+     *
+     * @param  integer $userID
+     * @return mixed
+     */
+    public function deleteByID($userID)
+    {
+        return $this->delete(array($this->getPrimaryKey() => $userID));
+    }
+
+    /**
      * Create a user record
      *
-     * @param  UserEntity $user
+     * @param  array $user_data
      * @return integer
      */
-    public function create(UserEntity $user)
+    public function create(array $user_data)
     {
-        return $this->ds->insert(self::TABLE_NAME, $user->toInsertArray());
+        return $this->ds->insert($this->meta_data['table'], $user_data);
+    }
+
+    /**
+     * Update a user record
+     *
+     * @param  array $user_data
+     * @return integer
+     */
+    public function update(array $user_data, int $id)
+    {
+        return $this->ds->update($this->meta_data['table'], $user_data, array($this->meta_data['primary'] => $id));
     }
 
     /**
@@ -217,7 +239,7 @@ class User extends BaseStorage
      * @param  integer $block_value
      * @return integer
      */
-    public function blockUser($user_id, $block_value)
+    public function blockUser(int $user_id, int $block_value)
     {
         $block_value = ($block_value < 0 || $block_value > 1) ? 0 : $block_value;
         return $this->ds->update(

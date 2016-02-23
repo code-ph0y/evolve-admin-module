@@ -7,6 +7,7 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
+  `blocked` tinyint(1) DEFAULT '0'
   PRIMARY KEY (`id`),
   KEY `user_level_id` (`user_level_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,4 +43,3 @@ VALUES
 	(1, 'Member'),
 	(2, 'Administrator'),
 	(3, 'Developer');
-

@@ -6,20 +6,20 @@
         <meta name="viewport" content="width=device-width">
 
         <!-- CSS Stuff -->
-        <link href="<?= $view['assets']->getUrl('components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
-        <link href="<?= $view['assets']->getUrl('components/fontawesome/css/font-awesome.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('components/fontawesome/css/font-awesome.css');?>" rel="stylesheet">
 
-        <link href="<?= $view['assets']->getUrl('css/admin.css');?>" rel="stylesheet">
-        <link href="<?= $view['assets']->getUrl('css/main.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/admin.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/main.css');?>" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
         <?php $view['slots']->output('include_css'); ?>
         <!-- /CSS Stuff -->
 
         <!-- JS Head Stuff -->
-        <script src="<?=$view['assets']->getUrl('components/modernizr/modernizr.js');?>"></script>
+        <script src="<?php echo $view['assets']->getUrl('components/modernizr/modernizr.js');?>"></script>
         <script type="text/javascript">
             var ppi = {
-                baseUrl: '<?=$view['router']->generate('Homepage');?>'
+                baseUrl: '<?php echo $view['router']->generate('Homepage');?>'
             }
         </script>
         <?php $view['slots']->output('include_js_head'); ?>
@@ -87,9 +87,9 @@
             </div>
         </div>
 
-        <script src="<?=$view['assets']->getUrl('components/jquery/dist/jquery.min.js');?>"></script>
-        <script src="<?=$view['assets']->getUrl('components/jquery-ui/jquery-ui.js');?>"></script>
-        <script src="<?=$view['assets']->getUrl('components/bootstrap/dist/js/bootstrap.min.js');?>"></script>
+        <script src="<?php echo $view['assets']->getUrl('components/jquery/dist/jquery.min.js');?>"></script>
+        <script src="<?php echo $view['assets']->getUrl('components/jquery-ui/jquery-ui.js');?>"></script>
+        <script src="<?php echo $view['assets']->getUrl('components/bootstrap/dist/js/bootstrap.min.js');?>"></script>
         <?php $view['slots']->output('include_js_body'); ?>
     </body>
 </html>

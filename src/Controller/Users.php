@@ -31,9 +31,10 @@ class Users extends SharedController
 
     public function saveAction(Request $request)
     {
-        $config        = $this->getConfig()
+        $config        = $this->getConfig();
         $missingFields = array();
         $post          = $request->request->all();
+
         // List of required array keys
         $requiredKeys  = array(
             'id',
@@ -47,47 +48,65 @@ class Users extends SharedController
 
         // Check for missing fields, or fields being empty.
         foreach ($requiredKeys as $field) {
-            if (!isset($post[$field]) || empty($post[$field])) {
+            if (!isset($post[$field]) || $post[$field] == '') {
                 $missingFields[] = $field;
             }
         }
 
         // If any fields were missing, inform the user
         if (!empty($missingFields)) {
-            $this->setFlash('error', 'Some requred fields are empty. Please check your input and try again!');
-            return $this->render('AdminModule:users:edit.html.php');
-        }
+            $user = $userStorage->makeEntity($post);
+            $this->setFlash('danger', 'Some requred fields are empty. Please check your input and try again!');
 
-        // Check if the email address already exists
-        if ($userStorage->existsByEmail($post['email'])) {
-            $this->setFlash(
-                'error',
-                'Email already exists at this moment. Please change your email address and try again!'
-            );
-            return $this->render('AdminModule:users:edit.html.php');
+            $user_levels = $this->getService('admin.userlevels.storage')->getAll();
+            return $this->render('AdminModule:users:edit.html.php', compact('user', 'user_levels'));
         }
 
         if ($post['id'] == 0) {
-            // Generate random password
+            // Check if the email address already exists
+            if ($userStorage->existsByEmail($post['email'])) {
+                $user = $userStorage->makeEntity($post);
+                $this->setFlash(
+                    'danger',
+                    'Email already exists at this moment. Please change your email address and try again!'
+                );
+
+                $user_levels = $this->getService('admin.userlevels.storage')->getAll();
+                return $this->render('AdminModule:users:edit.html.php', compact('user', 'user_levels'));
+            }
+
+            // Generate random password for user
             $password         = $this->getService('auth.security')->generateStrongPassword();
-            // Generate random salt
-            $userSalt         = $this->getService('auth.security')->generateSalt();
+            // Generate random salt for user
+            $post['salt']     = $this->getService('auth.security')->generateSalt();
             // Get authSalt from Application Config
             $appAuthSalt      = $config['authSalt'];
             // Generate encrypted password
-            $post['password'] = $this->getService('auth.security')->saltPass($password, $appAuthSalt, $userSalt);
+            $post['password'] = $this->getService('auth.security')->saltPass($password, $appAuthSalt, $post['salt']);
             // Set blocked value to not blocked
             $post['blocked']  = 0;
             // Create User
             $newUserID = $userStorage->create($post);
 
-            // @todo : create a entry in the user_activation_token table
+            // Generate sha1() based activation code
+            $activationCode = sha1(openssl_random_pseudo_bytes(16));
 
+            // Insert an activation token for this user
+            $this->getService('auth.user.activation.storage')->create(array(
+                'user_id'   => $newUserID,
+                'token'     => $activationCode,
+                'used'      => '1',
+                'date_used' => date('Y-m-d H:i:s', strtotime('now'))
+            ));
+            $this->setFlash('success', 'User Created. Password is: ' . $password);
         } else {
-            $userStorage->update($post, $post['id']);
+            // Update User
+            $id = $post['id'];
+            $userStorage->update($id, $post);
+            $this->setFlash('success', 'User Updated.');
         }
 
-        $this->setFlash('success', 'User Created. Password is ' . $password);
+
         return $this->redirectToRoute('AdminModule_Users');
     }
 

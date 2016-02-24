@@ -24,6 +24,17 @@ class User extends BaseStorage
     }
 
     /**
+     * Make an entity
+     *
+     * @param  $user_data
+     * @return mixed
+     */
+    public function makeEntity($user_data)
+    {
+        return new UserEntity($user_data);
+    }
+
+    /**
      * Get a user entity by its ID
      *
      * @param $user_id
@@ -128,7 +139,7 @@ class User extends BaseStorage
      */
     public function existsByEmail($email)
     {
-        $row = $this->createQueryBuilder()
+        $row = $this->ds->createQueryBuilder()
             ->select('count(id) as total')
             ->from($this->meta_data['table'], 'u')
             ->andWhere('u.email = :email')
@@ -191,23 +202,12 @@ class User extends BaseStorage
     /**
      * Delete a user by their ID
      *
-     * @param  integer $userID
+     * @param  integer $user_id
      * @return mixed
      */
-    public function deleteByID($userID)
+    public function deleteByID($user_id)
     {
-        return $this->delete(array($this->getPrimaryKey() => $userID));
-    }
-
-    /**
-     * Delete a user by their ID
-     *
-     * @param  integer $userID
-     * @return mixed
-     */
-    public function deleteByID($userID)
-    {
-        return $this->delete(array($this->getPrimaryKey() => $userID));
+        return $this->delete(array($this->meta_data['primary'] => $user_id));
     }
 
     /**
@@ -218,16 +218,18 @@ class User extends BaseStorage
      */
     public function create(array $user_data)
     {
-        return $this->ds->insert($this->meta_data['table'], $user_data);
+        $this->ds->insert($this->meta_data['table'], $user_data);
+        return $this->ds->lastInsertId();
     }
 
     /**
      * Update a user record
      *
+     * @param  integer $id
      * @param  array $user_data
      * @return integer
      */
-    public function update(array $user_data, int $id)
+    public function update($id, array $user_data)
     {
         return $this->ds->update($this->meta_data['table'], $user_data, array($this->meta_data['primary'] => $id));
     }
@@ -244,8 +246,8 @@ class User extends BaseStorage
         $block_value = ($block_value < 0 || $block_value > 1) ? 0 : $block_value;
         return $this->ds->update(
             $this->meta_data['table'],
-            array('blocked'=>$block_value),
-            array($this->meta_data['primary']=>$user_id)
+            array('blocked' => $block_value),
+            array($this->meta_data['primary'] => $user_id)
         );
     }
 

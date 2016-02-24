@@ -55,8 +55,8 @@
                     <div id="flashes"></div>
                     <!-- Begin Flash Message Injection -->
                     <?php
-                        $flashNames = array('info' => 'info', 'success' => 'success', 'error' => 'error', 'warning' => 'block', 'notice' => 'block');
-                        $flashHeadings = array('info' => 'Heads Up!', 'error' => 'Oops!', 'success' => 'Well done!', 'block' => 'Warning!');
+                        $flashNames = array('info' => 'info', 'success' => 'success', 'danger' => 'danger', 'warning' => 'block', 'notice' => 'block');
+                        $flashHeadings = array('info' => 'Heads Up!', 'danger' => 'Oops!', 'success' => 'Well done!', 'block' => 'Warning!');
 
                         if($view['session']->hasFlashes()):
                     ?>

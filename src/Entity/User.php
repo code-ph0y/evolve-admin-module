@@ -4,7 +4,7 @@ namespace AdminModule\Entity;
 
 class User
 {
-    protected $id            = null;
+    protected $id            = 0;
     protected $user_level_id = null;
     protected $username      = null;
     protected $first_name    = null;
@@ -143,4 +143,5 @@ class User
     {
         return $this->activated;
     }
+
 }

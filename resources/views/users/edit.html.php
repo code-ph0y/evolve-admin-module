@@ -4,7 +4,7 @@
     <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/form.js'); ?>"></script>
 <?php $view['slots']->stop(); ?>
 
-<h1><?php echo ($user->getId() === null) ? 'Create':'Edit'; ?></h1>
+<h1><?php echo ($user->getId() == 0) ? 'Create':'Edit'; ?></h1>
 <hr />
 <form method="post" action="<?php echo $view['router']->generate('AdminModule_Users_Save'); ?>">
     <div class="form-group">
@@ -24,7 +24,7 @@
         <select name="user_level_id" class="form-control" id="userInputUserLevelId">
             <option value="0">Select User Level</option>
             <?php foreach ($user_levels as $user_level) : ?>
-                <option <?php echo ($user->getUserLevelId()==$user_level->getId()) ? 'selected="selected"':''; ?> value="<?php echo $user_level->getId(); ?>"><?php echo $user_level->getTitle(); ?></option>
+                <option <?php echo ($user->getUserLevelId() == $user_level->getId()) ? 'selected="selected"':''; ?> value="<?php echo $user_level->getId(); ?>"><?php echo $user_level->getTitle(); ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -35,4 +35,6 @@
     <button class="btn btn-default btn-cancel">
         <i class="fa fa-arrow-left"></i> Cancel
     </button>
+
+    <input name="id" type="hidden" value="<?php echo $user->getId(); ?>" />
 </form>

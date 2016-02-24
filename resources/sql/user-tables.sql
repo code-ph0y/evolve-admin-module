@@ -7,10 +7,10 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
-  `blocked` tinyint(1) DEFAULT '0'
+  `blocked` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_level_id` (`user_level_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET="utf8";
 
 CREATE TABLE `user_activation_token` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -37,9 +37,3 @@ CREATE TABLE `user_level` (
   `title` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `user_level` (`id`,`title`)
-VALUES
-	(1, 'Member'),
-	(2, 'Administrator'),
-	(3, 'Developer');

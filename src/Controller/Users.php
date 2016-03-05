@@ -119,4 +119,64 @@ class Users extends SharedController
         $this->setFlash('success', 'User has been blocked');
         return $this->redirectToRoute('AdminModule_Users');
     }
+
+    public function changepasswordAction(Request $request)
+    {
+        $user_id = $request->get('user_id');
+        $user = $this->getService('admin.users.storage')->getById($user_id);
+        $rand_password = $this->getService('auth.security')->generateStrongPassword();
+
+        if ($user === false) {
+            throw new \Exception('No user found using user id: ' . $user_id);
+        }
+
+        return $this->render('AdminModule:users:changepassword.html.php', compact('user', 'rand_password'));
+    }
+
+    public function changepasswordsaveAction(Request $request)
+    {
+        // Get post variables
+        $password = $request->get('userPassword');
+        $user_id  = $request->get('userId');
+
+        // Get config
+        $config = $this->getConfig();
+
+        // Get user storage from AuthModule
+        $userStorage = $this->getService('auth.user.storage');
+
+        // Get security helper
+        $security = $this->getService('auth.security');
+
+        // Get user with user id
+        $user = $userStorage->getById($user_id);
+
+        // Validate user id
+        if ($user === false) {
+            throw new \Exception('No user found using user id: ' . $user_id);
+        }
+
+        // Validate password
+        if ($password == '') {
+            $rand_password = $security->generateStrongPassword();
+            $this->setFlash('danger', 'Password field was blank please re-evaluate your input and try again!');
+            return $this->render('AdminModule:users:changepassword.html.php', compact('user', 'rand_password'));
+        }
+
+        // Get new encrypted password
+        $encPassword = $security->saltPass(
+            $user->getSalt(),
+            $config['authSalt'],
+            $password
+        );
+
+        // Update user password
+        $userStorage->updatePassword(
+            $user->getId(),
+            $encPassword
+        );
+
+        $this->setFlash('success', 'Password changed successfully');
+        return $this->redirectToRoute('AdminModule_Users');
+    }
 }

@@ -19,3 +19,9 @@ AdminModule_Users_Save:
 AdminModule_Block_User:
     pattern: /admin/user/block/{user_id}/{block_value}
     defaults: { _controller: "AdminModule:Users:blockuser"}
+AdminModule_Users_Change_Password:
+    pattern: /admin/user/changepassword/edit/{user_id}
+    defaults: { _controller: "AdminModule:Users:changepassword"}
+AdminModule_Users_Change_Password_Save:
+    pattern: /admin/user/changepassword/save
+    defaults: { _controller: "AdminModule:Users:changepasswordsave"}

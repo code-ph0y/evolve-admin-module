@@ -1,7 +1,7 @@
 <?php $view->extend('AdminModule:base:admin.html.php'); ?>
 
 <?php $view['slots']->start('include_js_body'); ?>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/form.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/form.js'); ?>"></script>
 <?php $view['slots']->stop(); ?>
 
 <h1><?php echo ($user->getId() == 0) ? 'Create':'Edit'; ?></h1>

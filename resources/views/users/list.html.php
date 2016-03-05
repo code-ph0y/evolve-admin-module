@@ -1,16 +1,16 @@
 <?php $view->extend('AdminModule:base:admin.html.php'); ?>
 
 <?php $view['slots']->start('include_css') ?>
-    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/users.css'); ?>"/>
-    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/dataTables.bootstrap.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('modules/admin/css/users.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('modules/admin/css/dataTables.bootstrap.css'); ?>"/>
 <?php $view['slots']->stop(); ?>
 
 <?php $view['slots']->start('include_js_body') ?>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dataTables.bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dataTables.init.js'); ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/dialog.bootstrap.js'); ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('modules/adminmodule/js/adminmodule.init.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/jquery.dataTables.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/dataTables.bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/dataTables.init.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/dialog.bootstrap.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('modules/admin/js/admin.init.js'); ?>"></script>
 
 <?php $view['slots']->stop(); ?>
 
@@ -59,14 +59,15 @@
                             <i class="fa fa-lock"></i> Authentication <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="#">Request User To Chanage Password</a></li>
+                            <li><a href="<?php echo $view['router']->generate('AdminModule_Users_Change_Password', array('user_id' => $user->getId())); ?>">Change Password</a></li>
+                            <!-- @todo - Add request user to change password -->
+                            <!--<li><a href="#">Request User To Chanage Password</a></li>-->
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a href="<?php echo $view['router']->generate('AdminModule_Block_User', array('user_id'=>$user->getId(), 'block_value'=>($user->getBlocked()==0) ? 1:0)); ?>">
                                     <?php if ($user->getBlocked() == 1) : ?>
                                         Unblock User
-                                    <?php else: ?>
+                                    <?php else : ?>
                                         Block User
                                     <?php endif; ?>
                                 </a>

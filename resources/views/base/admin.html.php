@@ -9,8 +9,8 @@
         <link href="<?php echo $view['assets']->getUrl('components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
         <link href="<?php echo $view['assets']->getUrl('components/fontawesome/css/font-awesome.css');?>" rel="stylesheet">
 
-        <link href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/admin.css');?>" rel="stylesheet">
-        <link href="<?php echo $view['assets']->getUrl('modules/adminmodule/css/main.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('modules/admin/css/admin.css');?>" rel="stylesheet">
+        <link href="<?php echo $view['assets']->getUrl('modules/admin/css/main.css');?>" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
         <?php $view['slots']->output('include_css'); ?>
         <!-- /CSS Stuff -->

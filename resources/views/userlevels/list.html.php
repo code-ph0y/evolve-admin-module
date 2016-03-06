@@ -15,7 +15,7 @@
     <script src="<?php echo $view['assets']->getUrl('modules/admin/js/list.js'); ?>"></script>
 <?php $view['slots']->stop(); ?>
 
-<h1>Users</h1>
+<h1>User Levels</h1>
 <div class="row gap">
     <div class="col-md-12">
         <a class="btn btn-success pull-left" href="<?php echo $view['router']->generate('AdminModule_User_Levels_Create'); ?>" role="button"><i class="fa fa-plus"></i> Create New</a>

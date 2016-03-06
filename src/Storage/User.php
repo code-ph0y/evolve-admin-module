@@ -26,10 +26,10 @@ class User extends BaseStorage
     /**
      * Make an entity
      *
-     * @param  $user_data
+     * @param  array $user_data
      * @return mixed
      */
-    public function makeEntity($user_data)
+    public function makeEntity(array $user_data)
     {
         return new UserEntity($user_data);
     }
@@ -251,7 +251,13 @@ class User extends BaseStorage
         );
     }
 
-    public function rowsToEntities($rows)
+    /**
+     * Convert array to entities
+     *
+     * @param  array $rows
+     * @return mixed
+     */
+    public function rowsToEntities(array $rows)
     {
         $ent = array();
         foreach ($rows as $r) {

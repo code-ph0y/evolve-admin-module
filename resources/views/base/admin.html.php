@@ -50,6 +50,7 @@
                     <ul class="nav nav-sidebar">
                         <li><a href="<?php echo $view['router']->generate('AdminModule_Dashboard'); ?>">Dashboard <span class="sr-only">(current)</span></a></li>
                         <li><a href="<?php echo $view['router']->generate('AdminModule_Users'); ?>">Users</a></li>
+                        <li><a href="<?php echo $view['router']->generate('AdminModule_User_Levels'); ?>">User Levels</a></li>
                     </ul>
                 </div>
 

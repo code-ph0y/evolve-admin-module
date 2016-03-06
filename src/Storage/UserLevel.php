@@ -24,13 +24,24 @@ class UserLevel extends BaseStorage
     }
 
     /**
+     * Make an entity
+     *
+     * @param  array $user_level_data
+     * @return mixed
+     */
+    public function makeEntity(array $user_level_data)
+    {
+        return new UserLevelEntity($user_level_data);
+    }
+
+    /**
      * Get a user level entity by its id
      *
      * @param $user_level_id
      * @return mixed
      * @throws \Exception
      */
-    public function getByID($user_level_id)
+    public function getById($user_level_id)
     {
         $row = $this->ds->createQueryBuilder()
             ->select('ul.*')
@@ -60,28 +71,51 @@ class UserLevel extends BaseStorage
     }
 
     /**
-     * Delete a user by their ID
+     * Delete a user level by id
      *
-     * @param  integer $userID
+     * @param  integer $id
      * @return mixed
      */
-    public function deleteByID($id)
+    public function deleteById($id)
     {
-        return $this->delete(array($this->meta_data['primary'] => $id));
+        return $this->ds->delete($this->meta_data['table'], array($this->meta_data['primary'] => $id));
     }
 
     /**
-     * Create a user record
+     * Create a user level record
      *
-     * @param  UserEntity $user
+     * @param  array $user_level
      * @return integer
      */
-    public function create(UserEntity $user)
+    public function create(array $user_level)
     {
-        return $this->ds->insert($this->meta_data['table'], $user->toInsertArray());
+        return $this->ds->insert($this->meta_data['table'], $user_level);
     }
 
-    public function rowsToEntities($rows)
+
+    /**
+     * Update a user level record
+     *
+     * @param  int $id
+     * @param  array $user_level
+     * @return integer
+     */
+    public function update($id, array $user_level)
+    {
+        return $this->ds->update(
+            $this->meta_data['table'],
+            $user_level,
+            array($this->meta_data['primary'] => $id)
+        );
+    }
+
+    /**
+     * Convert array to entities
+     *
+     * @param  array $rows
+     * @return mixed
+     */
+    public function rowsToEntities(array $rows)
     {
         $ent = array();
         foreach ($rows as $r) {

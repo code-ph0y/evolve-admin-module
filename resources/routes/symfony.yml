@@ -28,3 +28,18 @@ AdminModule_Users_Change_Password:
 AdminModule_Users_Change_Password_Save:
     pattern: /admin/user/changepassword/save
     defaults: { _controller: "AdminModule:Users:changepasswordsave"}
+AdminModule_User_Levels:
+    pattern: /admin/userlevels
+    defaults: { _controller: "AdminModule:UserLevels:list"}
+AdminModule_User_Levels_Create:
+    pattern: /admin/userlevel/create
+    defaults: { _controller: "AdminModule:UserLevels:edit", user_level_id: 0}
+AdminModule_User_Levels_Edit:
+    pattern: /admin/userlevel/edit/{user_level_id}
+    defaults: { _controller: "AdminModule:UserLevels:edit"}
+AdminModule_User_Levels_Save:
+    pattern: /admin/userlevel/save
+    defaults: { _controller: "AdminModule:UserLevels:save"}
+AdminModule_User_Levels_Delete:
+    pattern: /admin/userlevel/delete
+    defaults: { _controller: "AdminModule:UserLevels:delete"}

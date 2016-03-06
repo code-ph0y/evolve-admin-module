@@ -4,7 +4,7 @@ namespace AdminModule\Entity;
 
 class UserLevel
 {
-    protected $id = null;
+    protected $id    = 0;
     protected $title = null;
 
     public function __construct($data = array())

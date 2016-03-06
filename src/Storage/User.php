@@ -241,7 +241,7 @@ class User extends BaseStorage
      * @param  integer $block_value
      * @return integer
      */
-    public function blockUser(int $user_id, int $block_value)
+    public function blockUser($user_id, $block_value)
     {
         $block_value = ($block_value < 0 || $block_value > 1) ? 0 : $block_value;
         return $this->ds->update(

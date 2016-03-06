@@ -3,7 +3,7 @@ AdminModule_Auth:
     defaults: { _controller: "AdminModule:Auth:checkuser"}
 AdminModule_Dashboard:
     pattern: /admin/dashboard
-    defaults: { _controller: "AdminModule:Index:index"}
+    defaults: { _controller: "AdminModule:Admin:dashboard"}
 AdminModule_Users:
     pattern: /admin/users
     defaults: { _controller: "AdminModule:Users:list"}

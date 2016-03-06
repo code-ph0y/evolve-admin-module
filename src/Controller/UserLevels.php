@@ -8,6 +8,9 @@ class UserLevels extends SharedController
 {
     public function listAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get user levels entities
         $user_levels = $this->getService('admin.userlevels.storage')->getAll();
 
@@ -16,6 +19,9 @@ class UserLevels extends SharedController
 
     public function editAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get post variables
         $user_level_id = $request->get('user_level_id');
 
@@ -31,6 +37,9 @@ class UserLevels extends SharedController
 
     public function saveAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         $config        = $this->getConfig();
         $missingFields = array();
         $post          = $request->request->all();
@@ -82,6 +91,9 @@ class UserLevels extends SharedController
 
     public function deleteAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get post delete items
         $deleteItems = $request->get('deleteItems');
         $items = explode(',', $deleteItems);

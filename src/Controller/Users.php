@@ -8,6 +8,9 @@ class Users extends SharedController
 {
     public function listAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get user entities
         $users = $this->getService('admin.users.storage')->getAll();
 
@@ -16,6 +19,9 @@ class Users extends SharedController
 
     public function editAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         $user_id = $request->get('user_id');
 
         if ($user_id == 0) {
@@ -31,6 +37,9 @@ class Users extends SharedController
 
     public function saveAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         $config        = $this->getConfig();
         $missingFields = array();
         $post          = $request->request->all();
@@ -112,6 +121,9 @@ class Users extends SharedController
 
     public function deleteAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get post delete items
         $deleteItems = $request->get('deleteItems');
         $items = explode(',', $deleteItems);
@@ -130,6 +142,9 @@ class Users extends SharedController
 
     public function blockuserAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         $this->getService('admin.users.storage')->blockUser(
             (int)$request->get('user_id'),
             (int)$request->get('block_value')
@@ -140,6 +155,9 @@ class Users extends SharedController
 
     public function changepasswordAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         $user_id = $request->get('user_id');
         $user = $this->getService('admin.users.storage')->getById($user_id);
         $rand_password = $this->getService('auth.security')->generateStrongPassword();
@@ -153,6 +171,9 @@ class Users extends SharedController
 
     public function changepasswordsaveAction(Request $request)
     {
+        // Check user is logged in
+        $this->loggedInCheck();
+
         // Get post variables
         $password = $request->get('userPassword');
         $user_id  = $request->get('userId');

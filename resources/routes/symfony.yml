@@ -16,6 +16,9 @@ AdminModule_Users_Edit:
 AdminModule_Users_Save:
     pattern: /admin/user/save
     defaults: { _controller: "AdminModule:Users:save"}
+AdminModule_Users_Delete:
+    pattern: /admin/user/delete
+    defaults: { _controller: "AdminModule:Users:delete"}
 AdminModule_Block_User:
     pattern: /admin/user/block/{user_id}/{block_value}
     defaults: { _controller: "AdminModule:Users:blockuser"}

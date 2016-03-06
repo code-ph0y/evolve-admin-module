@@ -200,14 +200,14 @@ class User extends BaseStorage
     }
 
     /**
-     * Delete a user by their ID
+     * Delete a user by their id
      *
      * @param  integer $user_id
      * @return mixed
      */
-    public function deleteByID($user_id)
+    public function deleteById($user_id)
     {
-        return $this->delete(array($this->meta_data['primary'] => $user_id));
+        return $this->ds->delete($this->meta_data['table'], array($this->meta_data['primary'] => $user_id));
     }
 
     /**

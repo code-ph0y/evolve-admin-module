@@ -110,6 +110,24 @@ class Users extends SharedController
         return $this->redirectToRoute('AdminModule_Users');
     }
 
+    public function deleteAction(Request $request)
+    {
+        // Get post delete items
+        $deleteItems = $request->get('deleteItems');
+        $items = explode(',', $deleteItems);
+
+        // Delete required items
+        foreach ($items as $item) {
+            $this->getService('admin.users.storage')->deleteById($item);
+            $this->getService('admin.user.activation.storage')->deleteByUserId($item);
+            $this->getService('admin.user.forgot.storage')->deleteByUserId($item);
+        }
+
+        // Inform the user
+        $this->setFlash('success', 'Selected items have been deleted successfully');
+        return $this->redirectToRoute('AdminModule_Users');
+    }
+
     public function blockuserAction(Request $request)
     {
         $this->getService('admin.users.storage')->blockUser(

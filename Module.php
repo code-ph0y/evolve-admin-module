@@ -67,6 +67,10 @@ class Module extends AbstractModule
                  return new \AuthModule\Storage\UserActivation($sm->get('datasource')->getConnection('main'));
             },
 
+            'admin.user.forgot.storage' => function ($sm) {
+                 return new \AuthModule\Storage\UserForgot($sm->get('datasource')->getConnection('main'));
+            },
+
             'admin.userlevels.storage' => function ($sm) {
                 return new \AdminModule\Storage\UserLevel($sm->get('datasource')->getConnection('main'));
             }
